@@ -133,10 +133,64 @@ function updateClock() {
     document.getElementById('current-time').textContent = `${hours}:${minutes}`;
 }
 
+// 表情面板逻辑
+const emojiToggle = document.getElementById('emoji-toggle');
+const emojiPanel = document.getElementById('emoji-panel');
+const actionOverlay = document.getElementById('action-overlay');
+const emojiIcon = document.getElementById('emoji-icon');
+const keyboardIcon = document.getElementById('keyboard-icon');
+const emojiGrid = document.getElementById('emoji-grid');
+
+let isEmojiOpen = false;
+
+emojiToggle.onclick = () => {
+    isEmojiOpen = !isEmojiOpen;
+    if (isEmojiOpen) {
+        emojiPanel.classList.add('open');
+        actionOverlay.classList.add('hidden');
+        emojiIcon.style.display = 'none';
+        keyboardIcon.style.display = 'block';
+        chatArea.classList.add('shifted');
+    } else {
+        emojiPanel.classList.remove('open');
+        actionOverlay.classList.remove('hidden');
+        emojiIcon.style.display = 'block';
+        keyboardIcon.style.display = 'none';
+        chatArea.classList.remove('shifted');
+    }
+    // 延迟滚动确保动画完成
+    setTimeout(() => {
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }, 300);
+};
+
+// 填充表情网格
+function fillEmojiGrid() {
+    emojiGrid.innerHTML = '';
+    // 添加一个加号作为第一个占位
+    const addItem = document.createElement('div');
+    addItem.className = 'emoji-item';
+    addItem.style.border = '1px dashed #ccc';
+    addItem.style.background = 'transparent';
+    addItem.innerHTML = '<span style="font-size: 30px; color: #ccc">+</span>';
+    emojiGrid.appendChild(addItem);
+
+    // 填充用户指定的表情包 img.jpg
+    for (let i = 0; i < 23; i++) {
+        const item = document.createElement('div');
+        item.className = 'emoji-item';
+        const img = document.createElement('img');
+        img.src = 'img.jpg';
+        item.appendChild(img);
+        emojiGrid.appendChild(item);
+    }
+}
+
 // 初始化
 window.onload = async () => {
     updateClock();
     setInterval(updateClock, 1000);
+    fillEmojiGrid();
     
     await new Promise(r => setTimeout(r, 1000));
     appendMessage('left', '可以成为我的对象吗？');

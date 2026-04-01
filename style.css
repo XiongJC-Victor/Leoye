@@ -161,12 +161,13 @@ body {
     height: 100px;
     background: linear-gradient(to bottom, rgba(0,0,0,0.02), transparent);
     pointer-events: none;
+    z-index: 2;
 }
 
 /* 底部交互区 */
 .action-overlay {
     position: absolute;
-    bottom: 50px;
+    bottom: 60px;
     left: 0;
     right: 0;
     padding: 10px;
@@ -174,6 +175,13 @@ body {
     justify-content: center;
     background: transparent;
     z-index: 5;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.action-overlay.hidden {
+    opacity: 0;
+    transform: translateY(20px);
     pointer-events: none;
 }
 
@@ -209,13 +217,37 @@ body {
 
 /* 底部栏 */
 .wechat-footer {
-    height: 50px;
+    height: 56px;
     background-color: #f7f7f7;
     border-top: 1px solid #dcdcdc;
     display: flex;
     align-items: center;
     padding: 0 10px;
-    gap: 10px;
+    gap: 8px;
+    z-index: 100;
+}
+
+.footer-icon-circle {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1.5px solid #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.footer-icon-circle svg {
+    fill: #555;
+}
+
+.footer-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
 .footer-icon svg {
@@ -224,9 +256,93 @@ body {
 
 .input-box {
     flex: 1;
-    height: 36px;
+    height: 40px;
     background-color: #fff;
     border-radius: 4px;
+    margin: 0 2px;
+}
+
+/* 表情面板 */
+.emoji-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 320px;
+    background-color: #f7f7f7;
+    border-top: 1px solid #dcdcdc;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.1, 0.7, 0.1, 1);
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+}
+
+.emoji-panel.open {
+    transform: translateY(0);
+}
+
+.emoji-title {
+    padding: 12px 15px;
+    font-size: 13px;
+    color: #888;
+}
+
+.emoji-grid {
+    flex: 1;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding: 0 15px 15px;
+}
+
+.emoji-item {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.emoji-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.emoji-tabs {
+    height: 50px;
+    background-color: #fff;
+    border-top: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 15px;
+}
+
+.tab-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+}
+
+.tab-icon.active {
+    background-color: #f7f7f7;
+}
+
+.tab-icon svg {
+    fill: #888;
+}
+
+/* 修正聊天区域高度 */
+.chat-area.shifted {
+    padding-bottom: 340px;
 }
 
 /* 动画效果 */
