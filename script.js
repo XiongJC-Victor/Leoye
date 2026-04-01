@@ -7,7 +7,7 @@ const SCALE_STEP = 0.4;
 let isLooping = false;
 
 // 模拟发送消息
-function appendMessage(side, text, scale = 1.0) {
+function appendMessage(side, text, scale = 1.0, isSticker = false) {
     const wrapper = document.createElement('div');
     wrapper.className = `msg-wrapper ${side}`;
     
@@ -26,14 +26,20 @@ function appendMessage(side, text, scale = 1.0) {
     
     // 气泡
     const bubble = document.createElement('div');
-    bubble.className = 'bubble';
-    bubble.innerText = text;
+    bubble.className = `bubble ${isSticker ? 'sticker' : ''}`;
     
-    // 应用缩放效果 (仅针对左侧循环消息)
-    if (side === 'left' && isLooping && scale > 1.0) {
+    if (isSticker) {
+        const stickerImg = document.createElement('img');
+        stickerImg.src = text;
+        bubble.appendChild(stickerImg);
+    } else {
+        bubble.innerText = text;
+    }
+    
+    // 应用缩放效果 (仅针对左侧循环消息且非贴纸)
+    if (side === 'left' && isLooping && scale > 1.0 && !isSticker) {
         bubble.style.transform = `scale(${scale})`;
         bubble.style.transformOrigin = 'left center';
-        // 增加边距防止重叠
         wrapper.style.marginBottom = `${(scale - 1) * 30}px`;
         wrapper.style.marginTop = `${(scale - 1) * 20}px`;
     }
@@ -183,6 +189,10 @@ function fillEmojiGrid() {
         item.className = 'emoji-item';
         const img = document.createElement('img');
         img.src = 'img.jpg';
+        img.onclick = (e) => {
+            e.stopPropagation();
+            appendMessage('right', 'img.jpg', 1.0, true);
+        };
         item.appendChild(img);
         emojiGrid.appendChild(item);
     }
