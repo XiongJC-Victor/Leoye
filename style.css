@@ -224,7 +224,13 @@ body {
     align-items: center;
     padding: 0 10px;
     gap: 8px;
-    z-index: 100;
+    z-index: 101;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.1, 0.7, 0.1, 1);
+}
+
+.wechat-footer.shifted {
+    transform: translateY(-320px);
 }
 
 .footer-icon-circle {
@@ -292,12 +298,14 @@ body {
     flex: 1;
     overflow-y: auto;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    padding: 0 15px 15px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    padding: 0 12px 12px;
+    align-content: start;
 }
 
 .emoji-item {
+    width: 100%;
     aspect-ratio: 1;
     display: flex;
     align-items: center;
@@ -308,8 +316,8 @@ body {
 }
 
 .emoji-item img {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
     object-fit: contain;
 }
 
@@ -340,9 +348,21 @@ body {
     fill: #888;
 }
 
-/* 修正聊天区域高度 */
+/* 修正聊天区域高度与位移 */
 .chat-area.shifted {
-    padding-bottom: 340px;
+    transform: translateY(-320px);
+}
+
+.chat-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 80px;
+    scroll-behavior: smooth;
+    transition: transform 0.3s cubic-bezier(0.1, 0.7, 0.1, 1);
 }
 
 /* 动画效果 */

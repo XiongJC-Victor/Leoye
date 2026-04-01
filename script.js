@@ -140,6 +140,7 @@ const actionOverlay = document.getElementById('action-overlay');
 const emojiIcon = document.getElementById('emoji-icon');
 const keyboardIcon = document.getElementById('keyboard-icon');
 const emojiGrid = document.getElementById('emoji-grid');
+const wechatFooter = document.getElementById('wechat-footer');
 
 let isEmojiOpen = false;
 
@@ -148,15 +149,17 @@ emojiToggle.onclick = () => {
     if (isEmojiOpen) {
         emojiPanel.classList.add('open');
         actionOverlay.classList.add('hidden');
+        wechatFooter.classList.add('shifted');
+        chatArea.classList.add('shifted');
         emojiIcon.style.display = 'none';
         keyboardIcon.style.display = 'block';
-        chatArea.classList.add('shifted');
     } else {
         emojiPanel.classList.remove('open');
         actionOverlay.classList.remove('hidden');
+        wechatFooter.classList.remove('shifted');
+        chatArea.classList.remove('shifted');
         emojiIcon.style.display = 'block';
         keyboardIcon.style.display = 'none';
-        chatArea.classList.remove('shifted');
     }
     // 延迟滚动确保动画完成
     setTimeout(() => {
@@ -172,11 +175,11 @@ function fillEmojiGrid() {
     addItem.className = 'emoji-item';
     addItem.style.border = '1px dashed #ccc';
     addItem.style.background = 'transparent';
-    addItem.innerHTML = '<span style="font-size: 30px; color: #ccc">+</span>';
+    addItem.innerHTML = '<span style="font-size: 24px; color: #ccc">+</span>';
     emojiGrid.appendChild(addItem);
 
-    // 填充用户指定的表情包 img.jpg
-    for (let i = 0; i < 23; i++) {
+    // 填充用户指定的表情包 img.jpg (5列 x 3行 = 15个，已占位一个，循环14次)
+    for (let i = 0; i < 14; i++) {
         const item = document.createElement('div');
         item.className = 'emoji-item';
         const img = document.createElement('img');
