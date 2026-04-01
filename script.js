@@ -189,9 +189,12 @@ function fillEmojiGrid() {
         item.className = 'emoji-item';
         const img = document.createElement('img');
         img.src = 'img.jpg';
-        img.onclick = (e) => {
+        img.onclick = async (e) => {
             e.stopPropagation();
             appendMessage('right', 'img.jpg', 1.0, true);
+            // 收到表情包后回复
+            await new Promise(r => setTimeout(r, 1000));
+            appendMessage('left', '亲亲小宝');
         };
         item.appendChild(img);
         emojiGrid.appendChild(item);
