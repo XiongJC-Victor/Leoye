@@ -1,0 +1,240 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ededed;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wechat-container {
+    width: 100%;
+    max-width: 450px;
+    height: 100vh;
+    background-color: #ededed;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 0 40px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* 状态栏模拟 */
+.status-bar {
+    height: 24px;
+    background-color: #ededed;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    align-items: center;
+    font-size: 12px;
+    color: #000;
+}
+
+/* 头部样式 */
+.wechat-header {
+    height: 44px;
+    background-color: #ededed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    z-index: 10;
+}
+
+.contact-name {
+    font-weight: 500;
+    font-size: 16px;
+    color: #000;
+}
+
+.back-icon svg, .more-icon svg {
+    fill: #000;
+}
+
+/* 聊天区域 */
+.chat-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 80px; /* 为按钮留出空间 */
+    scroll-behavior: smooth;
+}
+
+/* 消息气泡基础样式 */
+.msg-wrapper {
+    display: flex;
+    max-width: 85%;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.msg-wrapper.left {
+    align-self: flex-start;
+    flex-direction: row;
+}
+
+.msg-wrapper.right {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #fff;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar.empty {
+    background-color: #ccc;
+}
+
+.bubble {
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 1.4;
+    position: relative;
+    margin: 0 10px;
+    word-break: break-all;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* 左侧气泡 */
+.left .bubble {
+    background-color: #fff;
+    color: #000;
+}
+
+.left .bubble::before {
+    content: "";
+    position: absolute;
+    top: 14px;
+    left: -10px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent white transparent transparent;
+}
+
+/* 右侧气泡 */
+.right .bubble {
+    background-color: #95ec69;
+    color: #000;
+}
+
+.right .bubble::before {
+    content: "";
+    position: absolute;
+    top: 14px;
+    right: -10px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #95ec69;
+}
+
+/* 渐变装饰 */
+.wechat-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.02), transparent);
+    pointer-events: none;
+}
+
+/* 底部交互区 */
+.action-overlay {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    background: transparent;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.options-container {
+    display: flex;
+    gap: 15px;
+    pointer-events: auto;
+    align-items: center;
+}
+
+.btn-option {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    white-space: nowrap;
+}
+
+.btn-option:active {
+    background: #f0f0f0;
+    transform: scale(0.95);
+}
+
+.btn-option.big {
+    background-color: #07c160;
+    color: white;
+    border-color: #07c160;
+}
+
+/* 底部栏 */
+.wechat-footer {
+    height: 50px;
+    background-color: #f7f7f7;
+    border-top: 1px solid #dcdcdc;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 10px;
+}
+
+.footer-icon svg {
+    fill: #555;
+}
+
+.input-box {
+    flex: 1;
+    height: 36px;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+/* 动画效果 */
+@keyframes fadeInSlide {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.msg-wrapper {
+    animation: fadeInSlide 0.3s ease-out;
+}
