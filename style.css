@@ -226,11 +226,7 @@ body {
     gap: 8px;
     z-index: 101;
     position: relative;
-    transition: transform 0.3s cubic-bezier(0.1, 0.7, 0.1, 1);
-}
-
-.wechat-footer.shifted {
-    transform: translateY(-320px);
+    flex-shrink: 0;
 }
 
 .footer-icon-circle {
@@ -270,22 +266,19 @@ body {
 
 /* 表情面板 */
 .emoji-panel {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 320px;
+    height: 0;
+    overflow: hidden;
     background-color: #f7f7f7;
     border-top: 1px solid #dcdcdc;
-    transform: translateY(100%);
-    transition: transform 0.3s cubic-bezier(0.1, 0.7, 0.1, 1);
+    transition: height 0.3s cubic-bezier(0.1, 0.7, 0.1, 1);
     z-index: 90;
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
 }
 
 .emoji-panel.open {
-    transform: translateY(0);
+    height: 320px;
 }
 
 .emoji-title {
@@ -348,11 +341,7 @@ body {
     fill: #888;
 }
 
-/* 修正聊天区域高度与位移 */
-.chat-area.shifted {
-    transform: translateY(-320px);
-}
-
+/* 修正聊天区域高度 */
 .chat-area {
     flex: 1;
     overflow-y: auto;
@@ -360,9 +349,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding-bottom: 80px;
+    padding-bottom: 20px;
     scroll-behavior: smooth;
-    transition: transform 0.3s cubic-bezier(0.1, 0.7, 0.1, 1);
 }
 
 /* 动画效果 */

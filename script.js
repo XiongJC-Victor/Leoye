@@ -149,22 +149,21 @@ emojiToggle.onclick = () => {
     if (isEmojiOpen) {
         emojiPanel.classList.add('open');
         actionOverlay.classList.add('hidden');
-        wechatFooter.classList.add('shifted');
-        chatArea.classList.add('shifted');
         emojiIcon.style.display = 'none';
         keyboardIcon.style.display = 'block';
     } else {
         emojiPanel.classList.remove('open');
         actionOverlay.classList.remove('hidden');
-        wechatFooter.classList.remove('shifted');
-        chatArea.classList.remove('shifted');
         emojiIcon.style.display = 'block';
         keyboardIcon.style.display = 'none';
     }
-    // 延迟滚动确保动画完成
+    // 延迟滚动确保动画完成且 Flex 布局已重新计算
     setTimeout(() => {
-        chatArea.scrollTop = chatArea.scrollHeight;
-    }, 300);
+        chatArea.scrollTo({
+            top: chatArea.scrollHeight,
+            behavior: 'smooth'
+        });
+    }, 350);
 };
 
 // 填充表情网格
